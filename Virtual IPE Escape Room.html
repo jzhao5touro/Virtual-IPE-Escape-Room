@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Escape Room with Countdown Timer</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Fullscreen Genially iframe */
+    #genially-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 1;
+    }
+
+    /* Floating Timer Box */
+    #countdown-box {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 200px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- Genially Escape Room -->
+  <iframe
+    id="genially-frame"
+    src="https://view.genially.com/6850593501699c5af90657fa/interactive-content-virtual-ipe-escape-room"
+    allowfullscreen>
+  </iframe>
+
+  <!-- Countdown Timer -->
+  <div id="countdown-box">50:00</div>
+
+  <script>
+    // Set timer to 50 minutes
+    let totalSeconds = 50 * 60;
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      const formatted =
+        String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+      document.getElementById("countdown-box").textContent = formatted;
+
+      if (totalSeconds > 0) {
+        totalSeconds--;
+      } else {
+        clearInterval(timerInterval);
+        document.getElementById("countdown-box").textContent = "TIME'S UP!";
+      }
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
